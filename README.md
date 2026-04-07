@@ -1,2 +1,1810 @@
-# clinical
-O jeito mais fácil de usar IA na sua clínica!
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CliniCal — Kit de Marketing Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --purple: #7C3AED;
+  --purple-light: #A78BFA;
+  --purple-dark: #4C1D95;
+  --violet: #8B5CF6;
+  --pink: #EC4899;
+  --cyan: #06B6D4;
+  --green: #10B981;
+  --black: #080810;
+  --dark: #0F0F1A;
+  --dark2: #14141F;
+  --dark3: #1C1C2E;
+  --card: #1A1A2A;
+  --border: rgba(124,58,237,0.2);
+  --border2: rgba(255,255,255,0.06);
+  --white: #F8F8FF;
+  --muted: #6B7280;
+  --muted2: #9CA3AF;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Instrument Sans', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── NOISE ── */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top:0; left:0; right:0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(8,8,16,0.85);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border2);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.nav-pill {
+  background: rgba(124,58,237,0.15);
+  border: 1px solid var(--border);
+  color: var(--purple-light);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+}
+
+.nav-cta {
+  background: var(--purple);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--violet); transform: translateY(-1px); }
+
+/* ── SECTIONS ── */
+section { position: relative; z-index: 2; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(124,58,237,0.2) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-glow2 {
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(236,72,153,0.12) 0%, transparent 70%);
+  top: 30%; right: 10%;
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(124,58,237,0.12);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--purple-light);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  background: var(--purple-light);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.4; transform:scale(0.8); }
+}
+
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero-title .grad {
+  background: linear-gradient(135deg, var(--purple-light) 0%, var(--pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--muted2);
+  max-width: 580px;
+  line-height: 1.7;
+  margin: 0 auto 48px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  color: white;
+  padding: 16px 36px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+  box-shadow: 0 8px 32px rgba(124,58,237,0.35);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(124,58,237,0.5); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted2);
+  padding: 16px 36px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border2);
+  transition: all 0.3s;
+}
+.btn-ghost:hover { border-color: var(--border); color: var(--white); }
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  margin-top: 64px;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.hero-stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--white);
+}
+.hero-stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+.hero-divider { width: 1px; background: var(--border2); }
+
+/* ── MOCKUP ── */
+.mockup-section {
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+.phone-mockup {
+  width: 320px;
+  background: var(--dark2);
+  border: 1px solid var(--border2);
+  border-radius: 28px;
+  padding: 20px;
+  margin: 0 auto;
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.phone-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.phone-avatar {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+.phone-name { font-size: 14px; font-weight: 600; }
+.phone-status { font-size: 11px; color: var(--green); }
+
+.chat-messages { display: flex; flex-direction: column; gap: 10px; }
+
+.msg {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.msg-in {
+  background: var(--dark3);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+  color: var(--muted2);
+}
+
+.msg-out {
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+  color: white;
+}
+
+.msg-time { font-size: 10px; opacity: 0.5; margin-top: 4px; }
+
+/* ── PROBLEM ── */
+.problem { padding: 100px 0; background: var(--dark); }
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(236,72,153,0.1);
+  border: 1px solid rgba(236,72,153,0.2);
+  color: #F472B6;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+.section-tag.purple {
+  background: rgba(124,58,237,0.1);
+  border-color: rgba(124,58,237,0.2);
+  color: var(--purple-light);
+}
+
+.section-tag.green {
+  background: rgba(16,185,129,0.1);
+  border-color: rgba(16,185,129,0.2);
+  color: #34D399;
+}
+
+.section-tag.cyan {
+  background: rgba(6,182,212,0.1);
+  border-color: rgba(6,182,212,0.2);
+  color: #22D3EE;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border2);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.problem-card {
+  background: var(--dark2);
+  padding: 40px 32px;
+  position: relative;
+  transition: background 0.3s;
+}
+.problem-card:hover { background: var(--dark3); }
+
+.prob-icon {
+  width: 48px; height: 48px;
+  background: rgba(236,72,153,0.1);
+  border: 1px solid rgba(236,72,153,0.2);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.prob-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.prob-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* ── SOLUTION ── */
+.solution { padding: 100px 0; }
+
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.feature-list { display: flex; flex-direction: column; gap: 20px; }
+
+.feature-item {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+.feature-item:hover { border-color: var(--border); transform: translateX(4px); }
+
+.feature-icon {
+  width: 44px; height: 44px;
+  background: rgba(124,58,237,0.15);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.feature-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.feature-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── HOW IT WORKS ── */
+.how { padding: 100px 0; background: var(--dark); }
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 60px;
+  position: relative;
+}
+
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 36px; left: 16.67%; right: 16.67%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.step-card {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 36px 28px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s;
+}
+.step-card:hover { border-color: var(--border); transform: translateY(-4px); }
+
+.step-num {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 auto 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.step-icon { font-size: 28px; margin-bottom: 16px; }
+.step-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* ── METRICS ── */
+.metrics { padding: 100px 0; }
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border2);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.metric-card {
+  background: var(--card);
+  padding: 40px 32px;
+  text-align: center;
+  transition: background 0.3s;
+}
+.metric-card:hover { background: var(--dark3); }
+
+.metric-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--purple-light), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.metric-label { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ── TESTIMONIALS ── */
+.testimonials { padding: 100px 0; background: var(--dark); }
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.testi-card {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.testi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.testi-card:hover::before { transform: scaleX(1); }
+.testi-card:hover { border-color: var(--border); }
+
+.testi-quote { font-size: 36px; color: var(--purple); opacity: 0.3; margin-bottom: 12px; }
+.testi-text { font-size: 14px; color: var(--muted2); line-height: 1.7; font-style: italic; margin-bottom: 24px; }
+
+.testi-author { display: flex; align-items: center; gap: 12px; }
+
+.testi-avatar {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.testi-name { font-size: 13px; font-weight: 600; }
+.testi-role { font-size: 11px; color: var(--muted); }
+
+/* ── PRICING ── */
+.pricing { padding: 100px 0; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 40px 32px;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.pricing-card.featured {
+  background: linear-gradient(160deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05));
+  border-color: var(--border);
+}
+
+.pricing-card.featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple), var(--violet), var(--pink));
+  border-radius: 20px 20px 0 0;
+}
+
+.pricing-card:hover:not(.featured) { border-color: var(--border); transform: translateY(-4px); }
+
+.pricing-badge {
+  position: absolute;
+  top: -12px; left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.pricing-tier { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--purple-light); margin-bottom: 8px; }
+.pricing-name { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+.pricing-desc { font-size: 13px; color: var(--muted); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border2); }
+
+.pricing-price { margin-bottom: 8px; }
+.price-amount { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; }
+.price-period { font-size: 13px; color: var(--muted); }
+
+.pricing-features-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin: 28px 0 32px; }
+.pricing-features-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--muted2); line-height: 1.5;
+}
+.pricing-features-list li::before { content: '✓'; color: var(--purple-light); flex-shrink: 0; }
+
+.pricing-cta {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  color: var(--white);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.pricing-card.featured .pricing-cta {
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  border-color: transparent;
+  box-shadow: 0 8px 24px rgba(124,58,237,0.35);
+}
+
+.pricing-cta:hover { border-color: var(--border); background: rgba(124,58,237,0.1); }
+.pricing-card.featured .pricing-cta:hover { background: var(--violet); }
+
+/* ── FAQ ── */
+.faq { padding: 100px 0; background: var(--dark); }
+
+.faq-grid { display: flex; flex-direction: column; gap: 1px; background: var(--border2); border: 1px solid var(--border2); border-radius: 16px; overflow: hidden; margin-top: 60px; }
+
+.faq-item { background: var(--card); }
+
+.faq-question {
+  padding: 24px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  user-select: none;
+}
+
+.faq-question:hover { background: var(--dark3); }
+.faq-toggle { font-size: 20px; color: var(--purple-light); transition: transform 0.3s; flex-shrink: 0; }
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+.faq-answer {
+  padding: 0 28px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  color: var(--muted2);
+  line-height: 1.7;
+}
+.faq-item.open .faq-answer { padding: 0 28px 24px; max-height: 400px; }
+
+/* ── MARKETING KIT ── */
+.kit { padding: 100px 0; }
+
+.kit-header { text-align: center; margin-bottom: 64px; }
+
+.kit-tabs {
+  display: flex;
+  gap: 1px;
+  background: var(--border2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto 48px;
+}
+
+.kit-tab {
+  flex: 1;
+  padding: 14px 20px;
+  background: var(--card);
+  text-align: center;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  transition: all 0.2s;
+  border: none;
+}
+.kit-tab.active { background: var(--dark3); color: var(--purple-light); }
+.kit-tab:hover:not(.active) { background: var(--dark2); color: var(--muted2); }
+
+.kit-panel { display: none; }
+.kit-panel.active { display: block; }
+
+.copy-box {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.copy-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.copy-box-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--purple-light);
+  font-weight: 600;
+}
+
+.copy-btn {
+  background: rgba(124,58,237,0.15);
+  border: 1px solid var(--border);
+  color: var(--purple-light);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+.copy-btn:hover { background: rgba(124,58,237,0.25); }
+.copy-btn.copied { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); color: #34D399; }
+
+.copy-content { font-size: 14px; line-height: 1.8; color: var(--muted2); white-space: pre-wrap; }
+
+.ad-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+.ad-card {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.ad-card:hover { border-color: var(--border); }
+
+.ad-preview {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ad-preview-1 { background: linear-gradient(135deg, #0f0f1a 0%, #1c0a3a 100%); }
+.ad-preview-2 { background: linear-gradient(135deg, #0a0a1a 0%, #0a2a1a 100%); }
+.ad-preview-3 { background: linear-gradient(135deg, #1a0a0a 0%, #0a1a2a 100%); }
+.ad-preview-4 { background: linear-gradient(135deg, #0f0f1a 0%, #1a0a2a 100%); }
+
+.ad-preview-emoji { font-size: 40px; margin-bottom: 12px; }
+.ad-preview-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; line-height: 1.2; }
+.ad-preview-sub { font-size: 12px; color: var(--muted2); margin-top: 8px; }
+
+.ad-body { padding: 20px 24px; }
+.ad-platform { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--purple-light); margin-bottom: 8px; }
+.ad-copy-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── EMAIL TEMPLATE ── */
+.email-preview {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #111;
+  margin-bottom: 24px;
+}
+
+.email-header-bar {
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  padding: 32px 40px;
+  color: white;
+  text-align: center;
+}
+
+.email-logo { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; }
+.email-tagline { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+
+.email-body { padding: 40px; }
+.email-h1 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: #111; line-height: 1.3; margin-bottom: 16px; }
+.email-p { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 16px; }
+
+.email-highlight {
+  background: #F3EEFF;
+  border-left: 3px solid var(--purple);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  color: #333;
+  margin: 24px 0;
+  font-style: italic;
+}
+
+.email-cta {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  color: white;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.email-footer-bar {
+  background: #F8F8F8;
+  padding: 24px 40px;
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+  border-top: 1px solid #EEE;
+}
+
+/* ── FINAL CTA ── */
+.final-cta {
+  padding: 120px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 60%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.final-cta-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.final-cta-sub { font-size: 18px; color: var(--muted2); max-width: 480px; margin: 0 auto 48px; line-height: 1.7; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 32px 48px;
+  background: var(--dark);
+  border-top: 1px solid var(--border2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(20px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── SOCIAL CARDS ── */
+.social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.social-card {
+  aspect-ratio: 1;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.social-card:hover { transform: scale(1.02); }
+
+.sc-1 { background: linear-gradient(135deg, #0D0D1F, #1A0A3A); border: 1px solid rgba(124,58,237,0.3); }
+.sc-2 { background: linear-gradient(135deg, #0A1A0A, #0A2A1A); border: 1px solid rgba(16,185,129,0.3); }
+.sc-3 { background: linear-gradient(135deg, #1A0A0A, #2A0A1A); border: 1px solid rgba(236,72,153,0.3); }
+.sc-4 { background: linear-gradient(135deg, #0A0A1A, #0A1A2A); border: 1px solid rgba(6,182,212,0.3); }
+.sc-5 { background: linear-gradient(135deg, #1A1A0A, #2A1A0A); border: 1px solid rgba(245,158,11,0.3); }
+.sc-6 { background: linear-gradient(135deg, #0F0F1A, #1A0A2A); border: 1px solid rgba(124,58,237,0.3); }
+
+.sc-emoji { font-size: 40px; margin-bottom: 12px; }
+.sc-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; line-height: 1.3; }
+.sc-sub { font-size: 11px; color: var(--muted2); margin-top: 8px; line-height: 1.4; }
+.sc-tag { position: absolute; bottom: 12px; right: 12px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); }
+
+/* ── WHATSAPP ── */
+.wa-preview {
+  background: #ECE5DD;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.wa-header {
+  background: #075E54;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wa-avatar {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+.wa-contact-name { font-size: 14px; font-weight: 600; color: white; }
+.wa-contact-status { font-size: 11px; color: rgba(255,255,255,0.7); }
+
+.wa-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+
+.wa-msg {
+  background: white;
+  border-radius: 8px 8px 8px 0;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #111;
+  max-width: 80%;
+  line-height: 1.5;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  align-self: flex-start;
+}
+
+.wa-msg-out {
+  background: #DCF8C6;
+  border-radius: 8px 8px 0 8px;
+  align-self: flex-end;
+}
+
+.wa-time { font-size: 10px; color: #999; margin-top: 6px; text-align: right; }
+
+@media (max-width: 1024px) {
+  .problem-grid, .steps-grid, .pricing-grid, .testi-grid, .metrics-grid { grid-template-columns: 1fr; }
+  .solution-grid { grid-template-columns: 1fr; }
+  .ad-grid { grid-template-columns: 1fr; }
+  .social-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-stats { gap: 24px; flex-wrap: wrap; }
+  nav { padding: 16px 24px; }
+  .container { padding: 0 24px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">✚</div>
+    CliniCal
+  </div>
+  <div class="nav-pill">Kit de Marketing Completo</div>
+  <a href="#contato" class="nav-cta">Teste Grátis</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    Revolução da Saúde 4.0
+  </div>
+
+  <h1 class="hero-title">
+    O jeito mais fácil de usar<br>
+    <span class="grad">I.A na sua clínica.</span>
+  </h1>
+
+  <p class="hero-sub">
+    Cansado de perder pacientes no WhatsApp? Nossa IA agenda, confirma e recupera consultas 24/7 enquanto você cuida do que importa.
+  </p>
+
+  <div class="hero-btns">
+    <a href="#contato" class="btn-primary">
+      🚀 Começar Grátis — 14 dias
+    </a>
+    <a href="#demo" class="btn-ghost">
+      ▶ Ver demonstração
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div style="text-align:center">
+      <div class="hero-stat-num">+500</div>
+      <div class="hero-stat-label">Clínicas ativas</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div style="text-align:center">
+      <div class="hero-stat-num">+1M</div>
+      <div class="hero-stat-label">Consultas agendadas</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div style="text-align:center">
+      <div class="hero-stat-num">24/7</div>
+      <div class="hero-stat-label">Atendimento IA</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div style="text-align:center">
+      <div class="hero-stat-num">98%</div>
+      <div class="hero-stat-label">Satisfação</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="section-tag">🐘 O elefante na sala</div>
+    <h2 class="section-title">O problema que<br>ninguém fala</h2>
+
+    <div class="problem-grid reveal">
+      <div class="problem-card">
+        <div class="prob-icon">📱</div>
+        <div class="prob-title">Pacientes no WhatsApp fora do horário</div>
+        <div class="prob-desc">Mensagens chegam à noite, nos fins de semana e feriados. Cada mensagem ignorada é uma consulta perdida — e um paciente que vai para o concorrente.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon">⏰</div>
+        <div class="prob-title">Mensagens se perdem na correria</div>
+        <div class="prob-desc">Com dezenas de conversas simultâneas, sua secretária não consegue responder a tempo. Resultado: paciência esgotada e agenda com buracos.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon">📅</div>
+        <div class="prob-title">Cancelamentos de última hora viram prejuízo</div>
+        <div class="prob-desc">Sem confirmação automática, sua taxa de no-show pode chegar a 25%. Cada horário vago é dinheiro que fica na mesa — literalmente.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon">😓</div>
+        <div class="prob-title">Secretárias sobrecarregadas</div>
+        <div class="prob-desc">Sua equipe passa horas respondendo as mesmas perguntas. Com a IA, elas podem focar em atendimento de maior valor — e você economiza em contratações.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon">📋</div>
+        <div class="prob-title">Agenda cheia... mas com faltas</div>
+        <div class="prob-desc">Você olha pra agenda e vê horários. Mas quantos realmente aparecem? Sem gestão inteligente, sua clínica opera abaixo da capacidade real.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon">📊</div>
+        <div class="prob-title">Sem dados para decidir</div>
+        <div class="prob-desc">Qual horário tem mais faltas? Qual serviço traz mais retorno? Sem inteligência de dados, você gerencia no escuro e perde oportunidades invisíveis.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="demo">
+  <div class="container">
+    <div class="section-tag purple">✨ A solução</div>
+    <h2 class="section-title">Um agente de IA<br>treinado para clínicas</h2>
+
+    <div class="solution-grid">
+      <div class="feature-list reveal">
+        <div class="feature-item">
+          <div class="feature-icon">📅</div>
+          <div>
+            <div class="feature-title">Agenda consultas automaticamente</div>
+            <div class="feature-desc">A IA entende a mensagem do paciente, consulta sua disponibilidade e confirma o agendamento — tudo em segundos, sem intervenção humana.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔔</div>
+          <div>
+            <div class="feature-title">Confirma atendimentos</div>
+            <div class="feature-desc">Lembretes automáticos 48h e 2h antes da consulta reduzem o no-show em até 70%. Menos faltas, mais receita previsível.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">💳</div>
+          <div>
+            <div class="feature-title">Envia links de pagamento</div>
+            <div class="feature-desc">Integração com meios de pagamento para cobrar antecipado, reduzir inadimplência e garantir que o paciente apareça na consulta.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔄</div>
+          <div>
+            <div class="feature-title">Faz remarcações e cancelamentos</div>
+            <div class="feature-desc">Quando o paciente precisa cancelar, a IA remacha automaticamente e já oferece novos horários — mantendo a agenda sempre cheia.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⭐</div>
+          <div>
+            <div class="feature-title">Solicita avaliação no Google</div>
+            <div class="feature-desc">Após cada consulta, a IA pede avaliação no momento certo. Sua clínica sobe nos resultados de busca e atrai mais pacientes organicamente.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat mockup -->
+      <div class="phone-mockup reveal">
+        <div class="phone-header">
+          <div class="phone-avatar">✚</div>
+          <div>
+            <div class="phone-name">CliniCal IA</div>
+            <div class="phone-status">● Online agora</div>
+          </div>
+        </div>
+        <div class="chat-messages">
+          <div class="msg msg-out">
+            Olá! Gostaria de agendar uma consulta com o Dr. Pedro
+            <div class="msg-time">09:14</div>
+          </div>
+          <div class="msg msg-in">
+            Olá! 👋 Claro, posso ajudar. O Dr. Pedro tem horários disponíveis amanhã às 9h, 14h ou 16h. Qual prefere?
+            <div class="msg-time">09:14</div>
+          </div>
+          <div class="msg msg-out">
+            14h seria perfeito
+            <div class="msg-time">09:15</div>
+          </div>
+          <div class="msg msg-in">
+            Perfeito! ✅ Agendei sua consulta para amanhã às 14h. Enviei o link de pagamento por aqui mesmo. Posso ajudar em algo mais?
+            <div class="msg-time">09:15</div>
+          </div>
+          <div class="msg msg-out">
+            Não, obrigado! 😊
+            <div class="msg-time">09:16</div>
+          </div>
+          <div class="msg msg-in">
+            Às 16h de hoje você receberá um lembrete. Até amanhã! 🏥
+            <div class="msg-time">09:16</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="container">
+    <div class="section-tag cyan">⚡ Simples assim</div>
+    <h2 class="section-title">Como funciona</h2>
+
+    <div class="steps-grid reveal">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon">💬</div>
+        <div class="step-title">Conecte seu WhatsApp</div>
+        <div class="step-desc">Vincule o número da sua clínica em poucos cliques. Sem código, sem complicação. Setup em menos de 15 minutos.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon">⚙️</div>
+        <div class="step-title">Defina as regras da agenda</div>
+        <div class="step-desc">Configure horários, serviços, valores e políticas de cancelamento. A IA aprende tudo sobre sua clínica.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">⚡</div>
+        <div class="step-title">O agente começa a atender</div>
+        <div class="step-desc">Seus pacientes são atendidos 24h, automaticamente. Você recebe relatórios e acompanha tudo pelo painel.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:32px; justify-content:center; margin-top:40px;">
+      <span style="font-size:14px; color:var(--purple-light); font-weight:600;">✓ Sem código</span>
+      <span style="font-size:14px; color:var(--purple-light); font-weight:600;">✓ Sem curva de aprendizado</span>
+      <span style="font-size:14px; color:var(--purple-light); font-weight:600;">✓ Sem complicação</span>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics">
+  <div class="container">
+    <div class="section-tag green">📈 Resultados reais</div>
+    <h2 class="section-title">Números que falam<br>por si só</h2>
+
+    <div class="metrics-grid reveal">
+      <div class="metric-card">
+        <div class="metric-num">−80%</div>
+        <div class="metric-label">Tempo no WhatsApp</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">−70%</div>
+        <div class="metric-label">Taxa de no-show</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">3x</div>
+        <div class="metric-label">Mais avaliações Google</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">2min</div>
+        <div class="metric-label">Tempo médio de resposta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-tag purple" style="margin:0 auto 24px; width:fit-content;">💬 O que nossos clientes dizem</div>
+    <h2 class="section-title" style="text-align:center;">Resultados reais de clínicas que<br>transformaram seu atendimento</h2>
+
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">"A IA do CliniCal reduziu em 80% o tempo que gastávamos respondendo WhatsApp. Agora focamos no que realmente importa: o paciente."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">DAP</div>
+          <div>
+            <div class="testi-name">Dra. Ana Paula</div>
+            <div class="testi-role">Diretora Clínica · Clínica Vida Nova</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">"Em 2 meses recuperamos o investimento. A taxa de no-show caiu de 25% para 8% com as confirmações automáticas. Resultado surpreendente."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">DRM</div>
+          <div>
+            <div class="testi-name">Dr. Ricardo Mendes</div>
+            <div class="testi-role">Médico Proprietário · Centro Médico Saúde+</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">"Finalmente uma solução que entende as particularidades do atendimento em saúde. Minha equipe adorou a facilidade de uso."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">MS</div>
+          <div>
+            <div class="testi-name">Mariana Santos</div>
+            <div class="testi-role">Gestora Administrativa · Odonto Excellence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="precos">
+  <div class="container">
+    <div class="section-tag purple" style="margin:0 auto 24px; width:fit-content;">💎 Investimento</div>
+    <h2 class="section-title" style="text-align:center;">Planos que cabem<br>na sua realidade</h2>
+
+    <div class="pricing-grid reveal">
+      <div class="pricing-card">
+        <div class="pricing-tier">Plano 01</div>
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-desc">Para clínicas pequenas começando com IA</div>
+        <div class="pricing-price">
+          <div class="price-amount">R$ 297</div>
+          <div class="price-period">/mês · até 200 conversas</div>
+        </div>
+        <ul class="pricing-features-list">
+          <li>Agendamento automático via WhatsApp</li>
+          <li>Confirmação de consultas</li>
+          <li>Até 2 profissionais</li>
+          <li>Painel de gestão básico</li>
+          <li>Suporte por chat</li>
+        </ul>
+        <a href="#contato" class="pricing-cta">Começar grátis 14 dias</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Mais popular</div>
+        <div class="pricing-tier">Plano 02</div>
+        <div class="pricing-name">Professional</div>
+        <div class="pricing-desc">Para clínicas em crescimento com alto volume</div>
+        <div class="pricing-price">
+          <div class="price-amount">R$ 597</div>
+          <div class="price-period">/mês · conversas ilimitadas</div>
+        </div>
+        <ul class="pricing-features-list">
+          <li>Tudo do Starter +</li>
+          <li>Links de pagamento automáticos</li>
+          <li>Solicitação de avaliações Google</li>
+          <li>CRM de pacientes completo</li>
+          <li>Até 10 profissionais</li>
+          <li>Dashboard BI executivo</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <a href="#contato" class="pricing-cta">Começar grátis 14 dias</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Plano 03</div>
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-desc">Para redes de clínicas e hospitais</div>
+        <div class="pricing-price">
+          <div class="price-amount">Custom</div>
+          <div class="price-period">Sob consulta · multi-unidades</div>
+        </div>
+        <ul class="pricing-features-list">
+          <li>Tudo do Professional +</li>
+          <li>Integrações customizadas</li>
+          <li>Múltiplas unidades</li>
+          <li>SLA dedicado</li>
+          <li>Profissionais ilimitados</li>
+          <li>Implementação dedicada</li>
+          <li>Gerente de conta exclusivo</li>
+        </ul>
+        <a href="#contato" class="pricing-cta">Falar com especialista</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-tag cyan" style="margin:0 auto 24px; width:fit-content;">❓ Perguntas frequentes</div>
+    <h2 class="section-title" style="text-align:center;">Tudo que você precisa<br>saber antes de começar</h2>
+
+    <div class="faq-grid reveal">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Como a IA se conecta ao meu WhatsApp?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          O CliniCal se conecta ao seu WhatsApp Business através de uma integração oficial via QR Code. Em menos de 2 minutos seu número está ativo. Você mantém controle total e pode intervir nas conversas a qualquer momento.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Preciso instalar algo ou saber programar?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          Não! O CliniCal é 100% baseado em nuvem. Você acessa pelo navegador de qualquer dispositivo. Sem downloads, sem código, sem necessidade de TI. Se você usa WhatsApp, você usa o CliniCal.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Quanto tempo leva para configurar?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          A configuração inicial leva cerca de 15 minutos. Nossa equipe te acompanha em cada passo: cadastro dos serviços, horários de atendimento e personalização da IA. Em menos de 1 hora você já está operando.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          E se o paciente quiser falar com um humano?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          A IA identifica automaticamente quando o paciente precisa de atendimento humano e transfere a conversa para sua equipe com todo o histórico. Você também configura palavras-chave que acionam essa transferência imediatamente.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Posso cancelar quando quiser?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          Sim, sem multas ou taxas de rescisão. Você cancela quando quiser pelo próprio painel. Seus dados podem ser exportados a qualquer momento. Acreditamos que você deve ficar porque quer, não porque é obrigado.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Os dados dos meus pacientes estão seguros?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          Absolutamente. Utilizamos criptografia de ponta a ponta, servidores certificados LGPD e backups redundantes. Seus dados e os de seus pacientes estão protegidos com os mais altos padrões de segurança do mercado.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     KIT DE MARKETING
+════════════════════════════════════════════════ -->
+<section class="kit" id="kit">
+  <div class="container">
+    <div class="kit-header">
+      <div class="section-tag purple" style="margin:0 auto 24px; width:fit-content;">🎨 Kit de Marketing</div>
+      <h2 class="section-title">Materiais prontos<br>para vender</h2>
+      <p style="font-size:16px; color:var(--muted2); max-width:520px; margin:16px auto 0; line-height:1.7;">
+        Copie, adapte e publique. Todos os criativos e textos abaixo estão prontos para uso imediato nas suas campanhas.
+      </p>
+    </div>
+
+    <div class="kit-tabs">
+      <button class="kit-tab active" onclick="showTab('ads')">📱 Ads e Posts</button>
+      <button class="kit-tab" onclick="showTab('whatsapp')">💬 WhatsApp</button>
+      <button class="kit-tab" onclick="showTab('email')">📧 E-mail</button>
+      <button class="kit-tab" onclick="showTab('copy')">✍️ Copy</button>
+      <button class="kit-tab" onclick="showTab('social')">🎴 Criativos</button>
+    </div>
+
+    <!-- ADS PANEL -->
+    <div class="kit-panel active" id="panel-ads">
+      <div class="ad-grid">
+        <div class="ad-card">
+          <div class="ad-preview ad-preview-1">
+            <div class="ad-preview-emoji">🤖</div>
+            <div class="ad-preview-title">Sua clínica atende<br>24h sem contratar ninguém</div>
+            <div class="ad-preview-sub">CliniCal — IA para clínicas</div>
+          </div>
+          <div class="ad-body">
+            <div class="ad-platform">Facebook / Instagram Feed</div>
+            <div class="ad-copy-text">Você sabia que 60% dos pacientes tentam agendar fora do horário comercial? O CliniCal responde no WhatsApp 24/7 e agenda automaticamente. Teste grátis por 14 dias.</div>
+          </div>
+        </div>
+
+        <div class="ad-card">
+          <div class="ad-preview ad-preview-2">
+            <div class="ad-preview-emoji">📉</div>
+            <div class="ad-preview-title">Reduza faltas em 70%<br>com IA no WhatsApp</div>
+            <div class="ad-preview-sub">Confirmação automática de consultas</div>
+          </div>
+          <div class="ad-body">
+            <div class="ad-platform">Google Ads / Instagram Stories</div>
+            <div class="ad-copy-text">Cada falta custa dinheiro. Com o CliniCal, a IA confirma automaticamente 48h antes — e já remarca se precisar. Mais de 500 clínicas já eliminaram o no-show.</div>
+          </div>
+        </div>
+
+        <div class="ad-card">
+          <div class="ad-preview ad-preview-3">
+            <div class="ad-preview-emoji">⭐</div>
+            <div class="ad-preview-title">De 3.8 para 4.9 no Google<br>em 60 dias</div>
+            <div class="ad-preview-sub">Mais avaliações. Mais pacientes.</div>
+          </div>
+          <div class="ad-body">
+            <div class="ad-platform">LinkedIn / Facebook</div>
+            <div class="ad-copy-text">A IA solicita avaliação no momento certo — logo após a consulta. Suas notas sobem, você aparece primeiro no Google e mais pacientes encontram sua clínica.</div>
+          </div>
+        </div>
+
+        <div class="ad-card">
+          <div class="ad-preview ad-preview-4">
+            <div class="ad-preview-emoji">💰</div>
+            <div class="ad-preview-title">Sua secretária<br>nunca mais vai ser sobrecarregada</div>
+            <div class="ad-preview-sub">Libere sua equipe para o que importa</div>
+          </div>
+          <div class="ad-body">
+            <div class="ad-platform">Reels / TikTok / YouTube Shorts</div>
+            <div class="ad-copy-text">CliniCal responde, agenda, confirma e cobra — enquanto sua equipe foca no atendimento presencial. Sem código. Sem complicação. Resultado em 24h.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHATSAPP PANEL -->
+    <div class="kit-panel" id="panel-whatsapp">
+      <div class="copy-box">
+        <div class="copy-box-header">
+          <div class="copy-box-label">📲 Mensagem de Prospecção — Abordagem Fria</div>
+          <button class="copy-btn" onclick="copyText(this, 'wa1')">Copiar</button>
+        </div>
+        <div class="copy-content" id="wa1">Olá, [Nome]! Tudo bem? 👋
+
+Vi que você tem uma clínica de [especialidade] e queria compartilhar algo que está transformando a gestão de clínicas como a sua.
+
+Tenho uma solução de IA que responde seus pacientes no WhatsApp 24/7, agenda automaticamente e reduz as faltas em até 70%.
+
+Clínicas como a sua estão economizando mais de 20h/semana da equipe com isso.
+
+Posso te mostrar como funciona em 15 minutos? Sem compromisso. 😊</div>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-box-header">
+          <div class="copy-box-label">🔥 Mensagem de Follow-up — Após Primeira Conversa</div>
+          <button class="copy-btn" onclick="copyText(this, 'wa2')">Copiar</button>
+        </div>
+        <div class="copy-content" id="wa2">Oi, [Nome]! Passando pra checar se você conseguiu pensar na nossa conversa. 😊
+
+Sei que a agenda tá sempre corrida, então preparei um resumo rápido do que o CliniCal pode fazer pela sua clínica:
+
+✅ Atende pacientes 24h no WhatsApp
+✅ Agenda e confirma consultas automaticamente
+✅ Reduz faltas em até 70%
+✅ Solicita avaliações no Google após cada consulta
+✅ Libera sua equipe para o que realmente importa
+
+Teste GRÁTIS por 14 dias, sem cartão, sem compromisso.
+
+Posso te ajudar a configurar hoje mesmo — leva menos de 15 minutos!
+
+Link para começar: [link]</div>
+      </div>
+
+      <div class="wa-preview">
+        <div class="wa-header">
+          <div class="wa-avatar">✚</div>
+          <div>
+            <div class="wa-contact-name">CliniCal IA — Demo</div>
+            <div class="wa-contact-status">online</div>
+          </div>
+        </div>
+        <div class="wa-body">
+          <div class="wa-msg">
+            Boa tarde! Queria saber se o Dr. Carlos tem horário essa semana?
+            <div class="wa-time">14:32 ✓✓</div>
+          </div>
+          <div class="wa-msg" style="background:#DCF8C6; align-self:flex-end; border-radius:8px 8px 0 8px;">
+            Olá! 😊 Sim, o Dr. Carlos tem horários disponíveis. Você prefere:<br><br>• Quarta 10h<br>• Quinta 15h<br>• Sexta 9h<br><br>Qual melhor pra você?
+            <div class="wa-time">14:32 ✓✓</div>
+          </div>
+          <div class="wa-msg">
+            Quinta às 15h ótimo!
+            <div class="wa-time">14:33 ✓</div>
+          </div>
+          <div class="wa-msg" style="background:#DCF8C6; align-self:flex-end; border-radius:8px 8px 0 8px;">
+            Perfeito! ✅ Consulta agendada:<br><br>📅 Quinta-feira, 14/04<br>⏰ 15h00<br>👨‍⚕️ Dr. Carlos Oliveira<br><br>Vou enviar o link de confirmação agora. Até quinta! 🏥
+            <div class="wa-time">14:33 ✓✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL PANEL -->
+    <div class="kit-panel" id="panel-email">
+      <div class="email-preview">
+        <div class="email-header-bar">
+          <div class="email-logo">✚ CliniCal</div>
+          <div class="email-tagline">I.A para clínicas · Saúde 4.0</div>
+        </div>
+        <div class="email-body">
+          <div class="email-h1">Sua clínica perde R$ 3.000/mês por falta de resposta no WhatsApp</div>
+          <div class="email-p">Olá, [Nome],</div>
+          <div class="email-p">Um estudo com mais de 500 clínicas revelou um dado alarmante: <strong>60% dos pacientes tentam agendar consultas fora do horário comercial.</strong> Desses, quase metade desiste se não receber resposta em 15 minutos.</div>
+          <div class="email-highlight">"Mas eu tenho secretária..." — Sim. E ela está sobrecarregada, responde às mesmas perguntas dezenas de vezes por dia e ainda precisa de tirar férias.</div>
+          <div class="email-p">Com o <strong>CliniCal</strong>, um agente de IA treinado especificamente para clínicas de saúde resolve tudo isso:</div>
+          <div class="email-p">✅ Responde no WhatsApp 24/7<br>✅ Agenda automaticamente na hora<br>✅ Confirma e lembra os pacientes<br>✅ Reduz no-show em 70%<br>✅ Solicita avaliações no Google</div>
+          <div class="email-p">Mais de <strong>500 clínicas</strong> já usam o CliniCal. Mais de <strong>1 milhão de consultas</strong> foram agendadas automaticamente. Taxa de satisfação: <strong>98%.</strong></div>
+          <a href="#" class="email-cta">Teste Grátis por 14 Dias →</a>
+        </div>
+        <div class="email-footer-bar">
+          CliniCal · Saúde 4.0 · contato@clinicial.com.br<br>
+          Você está recebendo este e-mail porque solicitou informações sobre gestão de clínicas.
+        </div>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-box-header">
+          <div class="copy-box-label">📧 Linha de assunto (A/B Test)</div>
+          <button class="copy-btn" onclick="copyText(this, 'subjects')">Copiar</button>
+        </div>
+        <div class="copy-content" id="subjects">OPÇÃO A: Sua clínica perde pacientes enquanto você dorme
+OPÇÃO B: 70% menos faltas com IA no WhatsApp — como?
+OPÇÃO C: [Nome], uma pergunta rápida sobre sua agenda
+OPÇÃO D: O segredo das clínicas que faturam mais com menos equipe
+OPÇÃO E: Sua secretária vai te agradecer por isso</div>
+      </div>
+    </div>
+
+    <!-- COPY PANEL -->
+    <div class="kit-panel" id="panel-copy">
+      <div class="copy-box">
+        <div class="copy-box-header">
+          <div class="copy-box-label">📝 Copy para Post Instagram/LinkedIn</div>
+          <button class="copy-btn" onclick="copyText(this, 'insta1')">Copiar</button>
+        </div>
+        <div class="copy-content" id="insta1">🚨 Sua clínica está perdendo pacientes AGORA.
+
+Enquanto você lê isso, alguém está tentando agendar uma consulta na sua clínica via WhatsApp.
+
+Se não receber resposta em 15 minutos → vai para o concorrente.
+
+A realidade é cruel: 60% dos agendamentos acontecem FORA do horário comercial.
+
+E você tem duas opções:
+
+❌ Continuar perdendo pacientes
+✅ Deixar a IA responder por você
+
+O CliniCal é um agente de IA treinado para clínicas que:
+→ Responde instantaneamente 24/7
+→ Agenda automaticamente
+→ Confirma consultas e reduz faltas em 70%
+→ Pede avaliação no Google após cada consulta
+
++500 clínicas já usam. +1M consultas agendadas.
+
+Teste grátis por 14 dias — link na bio 👆
+
+#GestãoDeClínica #MedicinaDigital #IA #Saúde4 #WhatsApp #Inovação</div>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-box-header">
+          <div class="copy-box-label">📣 Copy para Google Ads — Pesquisa</div>
+          <button class="copy-btn" onclick="copyText(this, 'google')">Copiar</button>
+        </div>
+        <div class="copy-content" id="google">TÍTULO 1: IA para Clínicas — Agenda 24/7
+TÍTULO 2: Reduza Faltas em 70% com IA
+TÍTULO 3: Teste Grátis 14 Dias · Sem Cartão
+
+DESCRIÇÃO 1: Agente de IA no WhatsApp para clínicas. Agenda, confirma e recupera consultas automaticamente. +500 clínicas ativas.
+DESCRIÇÃO 2: Sem código, sem complicação. Configure em 15 min. Suporte dedicado. Cancele quando quiser.
+
+PALAVRAS-CHAVE SUGERIDAS:
+- software para clínicas médicas
+- sistema de agendamento para consultório
+- ia para saúde
+- whatsapp para clínica
+- agendamento automático médico
+- gestão de clínica online</div>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-box-header">
+          <div class="copy-box-label">🎯 Script para Vídeo de 60 segundos (Reels/TikTok)</div>
+          <button class="copy-btn" onclick="copyText(this, 'video')">Copiar</button>
+        </div>
+        <div class="copy-content" id="video">[CENA 1 — 0-5s — HOOK]
+"Você está perdendo pacientes enquanto dorme. Deixa eu te mostrar."
+
+[CENA 2 — 5-15s — PROBLEMA]
+Mostra WhatsApp com várias mensagens sem resposta.
+"São 23h. Um paciente quer agendar. Sua secretária dormiu. Ele espera... e vai para o concorrente."
+
+[CENA 3 — 15-35s — SOLUÇÃO]
+Mostra a IA respondendo instantaneamente.
+"Com o CliniCal, uma IA treinada para clínicas responde na hora. Agenda. Confirma. Cobra. Pede avaliação. Tudo automático."
+
+[CENA 4 — 35-50s — PROVA SOCIAL]
+Depoimento rápido ou estatísticas animadas.
+"Mais de 500 clínicas já usam. Taxa de no-show caiu 70%. 1 milhão de consultas agendadas automaticamente."
+
+[CENA 5 — 50-60s — CTA]
+"Teste grátis por 14 dias. Sem cartão. Link na bio."</div>
+      </div>
+    </div>
+
+    <!-- SOCIAL PANEL -->
+    <div class="kit-panel" id="panel-social">
+      <p style="font-size:14px; color:var(--muted2); margin-bottom:32px; text-align:center;">6 criativos prontos para publicar. Adapte o texto e use nas suas redes sociais.</p>
+      <div class="social-grid">
+        <div class="social-card sc-1">
+          <div class="sc-emoji">🤖</div>
+          <div class="sc-title">IA atende<br>seus pacientes 24/7</div>
+          <div class="sc-sub">Sem contratar ninguém. Sem esforço extra.</div>
+          <div class="sc-tag">clinicial.com.br</div>
+        </div>
+        <div class="social-card sc-2">
+          <div class="sc-emoji">📉</div>
+          <div class="sc-title">−70%<br>nas faltas</div>
+          <div class="sc-sub">Confirmação automática. Resultado garantido.</div>
+          <div class="sc-tag">clinicial.com.br</div>
+        </div>
+        <div class="social-card sc-3">
+          <div class="sc-emoji">⭐⭐⭐⭐⭐</div>
+          <div class="sc-title">Mais avaliações<br>no Google</div>
+          <div class="sc-sub">IA pede avaliação na hora certa. Automaticamente.</div>
+          <div class="sc-tag">clinicial.com.br</div>
+        </div>
+        <div class="social-card sc-4">
+          <div class="sc-emoji">💬</div>
+          <div class="sc-title">Setup em<br>15 minutos</div>
+          <div class="sc-sub">Sem código. Sem TI. Sem complicação.</div>
+          <div class="sc-tag">clinicial.com.br</div>
+        </div>
+        <div class="social-card sc-5">
+          <div class="sc-emoji">💰</div>
+          <div class="sc-title">ROI em<br>60 dias</div>
+          <div class="sc-sub">Média das clínicas que usam o CliniCal.</div>
+          <div class="sc-tag">clinicial.com.br</div>
+        </div>
+        <div class="social-card sc-6">
+          <div class="sc-emoji">🏥</div>
+          <div class="sc-title">+500 clínicas<br>já confiam</div>
+          <div class="sc-sub">+1M consultas agendadas automaticamente.</div>
+          <div class="sc-tag">clinicial.com.br</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="contato">
+  <h2 class="final-cta-title">
+    Pronto para sua<br>clínica <span class="grad">crescer com IA?</span>
+  </h2>
+  <p class="final-cta-sub">
+    Comece hoje. 14 dias grátis, sem cartão de crédito, sem compromisso. Cancele quando quiser.
+  </p>
+  <div class="hero-btns" style="position:relative;">
+    <a href="#" class="btn-primary" style="font-size:16px; padding:18px 48px;">
+      🚀 Testar Grátis por 14 Dias
+    </a>
+    <a href="https://wa.me/5511999999999" class="btn-ghost" style="font-size:16px; padding:18px 36px;">
+      💬 Falar no WhatsApp
+    </a>
+  </div>
+  <p style="font-size:12px; color:var(--muted); margin-top:24px; position:relative;">
+    Sem cartão de crédito · Cancele quando quiser · Suporte em português
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="nav-logo">
+    <div class="logo-icon">✚</div>
+    CliniCal
+  </div>
+  <div class="footer-mono">Kit de Marketing © 2026 · I.A para Saúde</div>
+  <div class="footer-mono">contato@clinicial.com.br</div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// FAQ toggle
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// Tab switching
+function showTab(name) {
+  document.querySelectorAll('.kit-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.kit-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+// Copy to clipboard
+function copyText(btn, id) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  navigator.clipboard.writeText(el.textContent.trim()).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Stagger cards
+document.querySelectorAll('.problem-card, .feature-item, .step-card, .metric-card, .testi-card, .pricing-card').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 4) * 0.08}s`;
+});
+</script>
+</body>
+</html>
